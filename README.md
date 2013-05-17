@@ -1,7 +1,5 @@
-/*aTable
-======
+/*ATable -Multiplication Table Code written in java*/
 
-Multiplication Table Code*/
 import java.util.*;
 
 class ATable {
