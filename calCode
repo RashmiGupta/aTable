@@ -1,0 +1,140 @@
+//*******************************************************************
+import java.lang.Math; 
+
+public class MyDay
+{
+  public static void main(String[] args)
+  {
+    InputClass myObject = new InputClass("Please Input Your Date");
+    System.out.println(myObject);
+    ComputeClass computationResult = new ComputeClass(2016, 11, 3);
+    OutputClass personalizedMessage = new OutputClass(computationResult.getDay());
+    System.out.println(personalizedMessage);
+  }
+}
+
+
+public class InputClass
+{
+  private String message;
+  private boolean answer = false;
+  public InputClass(String input)
+  {
+    message = "Well, are you curious about your day?" + input + " ,and I will tell you.";
+  }
+  public String toString()
+  {
+    return message;
+  }
+}
+
+public class ComputeClass
+{
+  private boolean answer = false;
+  private int day = 6;
+  
+  public ComputeClass(int y, int m, int d)
+  {
+    //getCode0(y);
+    //System.out.println("The code for year " + y + " is " + getCode0(y));
+    //System.out.println("The code for month " + m + " is " + getCode1(m));
+    
+    int c0 = getCode1(m)+d+getCode0(y);
+    int c1 = multipleOf7(c0);
+    int c2 = (c0-c1 == 0)?7:c0-c1;
+    day = checkLeapCorrection(y,m)?leapCorrect(c2):(c2);
+    //System.out.println("The day code is " + day);
+    
+  }
+  
+  private int leapCorrect(int day){
+    return (day==1)?7:day-1;
+  }
+  
+  private boolean checkLeapCorrection(int y, int m){
+    if (leapYear(y)){
+      	//System.out.println("Leap year!");
+    	  if (m == 1 || m == 2){
+      		//System.out.println("Leap correction needed");
+    	    return true;
+        }
+    }
+    return false;
+  }
+  
+  private boolean leapYear(int year){
+    if((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))){
+         return true;
+    }
+    return false;
+  }
+  
+  private int getCode0(int y){
+    int r0 = y-1900;
+    int r1 = r0/4;
+    int r2 = r0+r1;
+    int r3 = multipleOf7(r2);
+    int r4 = r2 - r3;
+    return r4;
+  }
+  
+  private int multipleOf7(int num){
+    
+    while ( result % 7 != 0){
+      result--;
+    }
+    //System.out.println("The closest multiple of 7 from " + num + " is " + result);
+    return result;
+  }
+  
+  
+  
+  
+  private int getCode1(int m){
+    String mCode = "144025036146";
+    return Character.getNumericValue(mCode.charAt(m-1));
+  }
+  
+  public int getDay() {
+    int c0 = getCode1(m)+d+getCode0(y);
+    int c1 = multipleOf7(c0);
+    System.out.println("The day code is " + c0-c1);
+    return day;
+  }
+}
+
+
+public class OutputClass
+{
+  private String message;
+  private boolean answer = false;
+  public OutputClass(int num)
+  {
+    tellItLikeItIs(num);
+  }
+  
+  public void tellItLikeItIs(int num) {
+        switch (num) {
+            case 2:
+                message = "It is ok, Monday is a start.";
+                break;
+                    
+            case 6:
+                message = "Cheer up, Fridays are always better.";
+                break;
+                         
+            case 7: case 1:
+                message = "No worries, Weekends are best.";
+                break;
+                        
+            default:
+                message = "Midweek days are so-so.";
+                break;
+        }
+    }
+    
+  public String toString()
+  {
+    return message;
+  }
+}
