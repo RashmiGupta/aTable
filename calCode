@@ -79,7 +79,7 @@ public class ComputeClass
   }
   
   private int multipleOf7(int num){
-    
+    int result = num;
     while ( result % 7 != 0){
       result--;
     }
@@ -87,18 +87,12 @@ public class ComputeClass
     return result;
   }
   
-  
-  
-  
   private int getCode1(int m){
     String mCode = "144025036146";
     return Character.getNumericValue(mCode.charAt(m-1));
   }
   
   public int getDay() {
-    int c0 = getCode1(m)+d+getCode0(y);
-    int c1 = multipleOf7(c0);
-    System.out.println("The day code is " + c0-c1);
     return day;
   }
 }
