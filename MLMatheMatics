@@ -1,5 +1,26 @@
+### Mathematics & Code
 
-P(a|s)=N(mu,sigma^2), $`\sum_{t=-inf}^inf P(a_t|s_t) = 1 `$
+**The Cauchy-Schwarz Inequality**\
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+
+
+
+```
+public static String monthNames[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+```
+```javascript
+      var s = "JavaScript syntax highlighting";
+      alert(s);
+```
+
+```python
+      s = "Python syntax highlighting"
+      print s
+```
+
+$$\sum_{t=-inf}^inf P(a_t|s_t) = 1 $$
+
+P(a|s)=N(mu,sigma^2), $``$
 
 loss = -log P(a_t|s_t)R_t
 Gradient descent update w' = w - \nabla loss
