@@ -39,6 +39,29 @@ $$\sum_{t=-inf}^inf P(a_t|s_t) = 1 $$
 P(a|s)=N(mu,sigma^2), $``$
 
 loss = -log P(a_t|s_t)R_t
+
+Inverse of a matrix can be formulated as a problem of solving a set of linear equations. [ [ 3,1], [4,2] ] ^ -1  * [ [a,b], [c,d] ] = [ [1,0], [0,1] ] by setting up equations to solve a,b,c,d
+3a+c = 1, 4a + 2c = 0, 3b +d = 0, 4b + 2d = 1.  We obtain a = 1, b = -1/2, c= -2, d=3/2.  The matrix inverse is [ [1, -1/2], [-2, 3/2] ]
+Properties of Invertable matrices are that they are non-singular with a non-zero detrminant. In order to verify the correctness of  the inverse matrix. there are two ways. The product of two matrices
+is a identity matrix. Also from the property of determinants, we will have determinant of inverse matrix as inverse of the determinant of the original matrix. Thus singular matrices with determinat 0 
+is not invertible as there is no inverse of 0.
+
+Singular or non-singular matrices can be determined from the property called Determinant which is a scal quantity of a matrix. Non-singular matrices have a non-zero detrminant where as
+the singular matrices have determinant=0. 
+Thus, a property also attributing to geometry of the shape defined by the coordinates after linear transformation. In a plane the determinants of a matrix that performs
+the linear transformation extends/shrinks the area of transformed image by the determinant of the transformation matrix,
+
+
+ML models use threshold and the threshold can be used as a bias in NN for classification with a positive score, and a negative score as binary classification. 
+AND operator can be modeled as a perceptron which is a small neural net of one layer.
+Eigen vectors characterize the linear transformationsassociated with a given matrix. 
+Rank of a Matrix for Linear transformation which is also defined by the singularity or non-singularity of a linear transformation is given by the image of the linear transformation
+
+Checking for Linear dependence also requires solving of Linear equations. If there is a solution that thereby proving the dependence of the basis vectors and 
+
+Knowing the Eigen basis which is obtained from solving Av1 = lambda1 v1
 Gradient descent update w' = w - \nabla loss
+
+
 
 ---
