@@ -31,7 +31,17 @@ public static String monthNames[] = {"January", "February", "March", "April", "M
 
 ```python
       s = "Python syntax highlighting"
-      print s
+      np.linspace(0,100,5).dtype  # outputs float and values will be evenly spaced 5 linear points [0.0,25.0,50.0,75.0,100.0]
+      np.linspace(0,100,5, dtype=int)  # outputs [0,25,50,75,100]
+      np.random.rand(3)     # Return a new array of shape 3 with random numbers between 0 and 1.
+      np.reshape( np.random.rand(6), (2,3) ) # the array to be reshaped
+      ndarray.ndim       #- Stores the number dimensions of the array.
+      ndarray.shape  # Stores the shape of the array. Each number in the tuple denotes the lengths of each corresponding dimension.
+      ndarray.size # Stores the number of elements in the array.
+      np.vstack()  # stacks vertically
+      np.hstack()  # stacks horizontally
+      np.hsplit()  # splits an array into several smaller arrays
+      print s 
 ```
 
 $$\sum_{t=-inf}^inf P(a_t|s_t) = 1 $$
