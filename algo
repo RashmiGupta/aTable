@@ -1,0 +1,74 @@
+Dijkstra’s algorithm via a priority queue, it each time extracts a vertex u with the minimum
+distance from the source, and from u relaxes its outgoing edges. It typically sorts vertices by their
+distances from the source, resulting in a time complexity of at least Θ(n log n).
+Bellman-Ford algorithm based on dynamic programming, it relaxes all edges for several
+steps. For finding shortest paths with at most k edges, the Bellman-Ford algorithm can achieve this in
+O(mk) time without requiring sorting.
+To do:  (Bounded Multi-Source Shortest Path). We hope to partition a vertex set U into 2**t pieces of similar sizes,
+where vertices in earlier pieces have smaller distances, and then recursively partition each Ui. In this way, the
+size of the sub-problem shrinks to a single vertex after roughly (log n)/t recursion levels. To construct our
+structure dynamically, each time we would try to compute the distances to a set of closest vertices (without
+necessarily recovering a complete ordering between their true distances), and report a boundary indicating
+how much progress we actually make. Suppose at some stage of the algorithm, for every u with d(u) < b, u is complete 
+and we have relaxed all the edges from u. We want to find the true distances to vertices v with d(v) ≥ b. To avoid the Θ(log n) time
+per vertex in a priority queue, consider the “frontier” S containing all current vertices v with b ≤ db[v] < B
+for some bound B (without sorting them). We can see that the shortest path to every incomplete vertex v with b ≤ d(v) < B 
+must visit some complete vertex in S. Thus to compute the true distance to every v′with b ≤ d(v′) < B, it suffices to find 
+the shortest paths from vertices in S and bounded by B. We call this subproblem bounded multi-source shortest path (BMSSP
+We are given an integer level l ∈ [0, ⌈log(n)/t⌉], a set of vertices S of size ≤ 2**(lt), and an upper bound B > max(x∈S) db[x].
+Suppose that for every incomplete vertex v with d(v) < B, the shortest path to v visits some complete vertex u ∈ S. Then we have an sub-routine 
+BMSSP(l, B, S) in O((kl +tl/k +t)|U|) time that outputs new boundary B′ ≤ B and a vertex set U that contains every vertex v with d(v) < B′ 
+and the shortest path to v visits some vertex of S. At the end of the sub-routine, U is complete. 
+
+class SSSP_DG:
+  def __init__(self,vec): self.P,self.D = { node:None for node in vec },{ node:inf for node in vec }
+  def classic(self, G : dict ,s ):
+    self.D[0],H = 0, [(0,s))
+    while H:
+      x,u = heapq.heappop(H)
+      if x > self.D[ u ] : continue
+      for v,w in G[u].items():
+          y = x + w
+          if y < self.D[ v ] :
+              self.P[v],self.D[v]= u,y
+              heapq.heappush(H,(y,v))
+  def get_SSSP(e, path=[]):
+      u = e
+      while u:
+        path.append(u)
+        if u == self.P[0] : break
+        u = self.P[ u ]
+  def neg_cycle(self, G, s, m, dist):
+      for _ in range(m-1): # relax edges m-1 times
+        for u,v,w in G:
+          if dist[u] != inf and dist[u] + w < dist[v]: dist[v] = dist[u] + w
+      for u,v,w in G:    # Check for negative cycles
+          if dist[u] != inf and dist[u] + w < dist[v]: 
+              print("Graph contains a negative weight cycle")
+              return
+######################################################
+V = ['A','B','C','D','E']
+obj = SSSP_DG(V)
+
+DG0 = [ ('A', 'B', 1), ('A','C', 4), ('A','E', -1),
+        ('B', 'A', -2), ('B', 'C', 2), ('B','D', 5), 
+        ('C','A', 4), ('C','B', 2), ('C','D',1),
+        ('D','B', 5), ('D','C', 1) ]
+dist = [0] + [inf]*len(V)-1
+obj.neg_cycle( DG0, V[0], len(V), dist)
+print("Vertex Distance from Source")       # Demonstrate Bellman Ford
+for i in V: print(f"{i}\t\t{dist[i]}")
+##########################################################
+DG = { 'A': {'B': 1, 'C': 4}, 
+       'B': {'C': 2, 'D': 5}}, 
+       'C': {'A': 4, 'B': 2, 'D': 1},
+       'D': {'B': 5, 'C': 1}       }
+V = [node for node in DG ]  # Collected all vertices of DG and SS as the first one in DG
+
+obj = SSSP_DG(V)                            # Demonstrate Dijkstra
+obj.classic(G,V[0])
+for e in V[1:]:            # Printing SP for all vertices from SS of DG to each as end vertex.
+    ret = []
+    obj.get_SSSP(e,ret)
+    if ret and ret[-1] == V[0]: print(f"SP from {V[0]} to {e}: {ret}")
+    else: print(f"No path found from {V[0]} to {e}")
