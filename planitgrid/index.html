@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>Blank template</title>
+
+        <!-- Load external CSS styles -->
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    </head>
+
+    <body>
+        <div class="tab-container">
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'Tab1')">KML</button>
+            <button class="tab-button" onclick="openTab(event, 'Tab2')">Astro</button>
+        </div>
+        <div id="Tab1" class="tab-content">
+            <h3>Journal</h3>
+            <div id="map"></div></div>
+        <div id="Tab2" class="tab-content" style="display: none;">
+            <h3>My awesome space</h3>
+            <div id="grid-container" class="grid"><!-- Grid items will be populated here by JavaScript -->
+                <!-- 4x4 grid items (16 total) -->
+                <div class="grid-item">10</div><div class="grid-item">11</div><div class="grid-item">12</div>
+                <div class="grid-item">1</div><div class="grid-item">9</div><div class="grid-item"></div>
+                <div class="grid-item"></div><div class="grid-item">2</div><div class="grid-item">8</div>
+                <div class="grid-item"></div><div class="grid-item"></div><div class="grid-item">3</div>
+                <div class="grid-item">7</div><div class="grid-item">6</div><div class="grid-item">5</div>
+                <div class="grid-item">4</div>
+                <div class="gridL">
+                <!-- 3x3 overlay grid items (9 total) -->
+                    <div class="L-item">4</div><div class="L-item">9</div><div class="L-item">2</div>
+                    <div class="L-item">3</div><div class="L-item">5</div><div class="L-item">7</div>
+                    <div class="L-item">8</div><div class="L-item">1</div><div class="L-item">6</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- <h1>My awesome space</h1>
+        Load external JavaScript
+        <div id="grid">
+            <div class="gridL">
+                <p>R</p><p>M</p><p>C</p>
+                <p>G</p><p>B</p><p>K</p>
+                <p>S</p><p>D</p><p>V</p>
+            </div></div>
+        -->
+    <script src="scripts.js"></script>
+    <script src="grid.js"></script>
+    <script src="leaf_map.js"></script>
+        
+    </body>
+
+</html>
