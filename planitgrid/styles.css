@@ -1,0 +1,79 @@
+/* Place your CSS styles in this file */
+#map { height: 200px; } /* Set a specific height for the map container */
+h1 {
+    text-align: left;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: normal;
+}
+.grid {
+  display: grid;
+  border: 1px solid black;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 400px; /* Adjust as needed */
+  height: 400px; /* Adjust as needed */
+  position: relative; /* Crucial for overlay positioning */
+}
+
+.grid-item {
+  border: 1px solid whitesmoke;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  background-color: lightskyblue;
+}
+
+.gridL {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  position: absolute; /* Position relative to .grid-container-4x4 */
+  top: 25%; /* Start at the second row of the 4x4 grid */
+  left: 25%; /* Start at the second column of the 4x4 grid */
+  width: 50%; /* Span across two central columns of the 4x4 grid */
+  height: 50%; /* Span across two central rows of the 4x4 grid */
+  background-color: lightgoldenrodyellow; /* Semi-transparent background */
+}
+
+.L-item {
+  border: 1px solid blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: blue;
+}
+.tab-container {
+    max-width: 800px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+.tab-button {
+    background-color: #f1f1f1;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+.tab-button:hover {
+    background-color: #ddd;
+}
+
+.tab-button.active {
+    background-color: #ccc;
+}
+
+.tab-content {
+    padding: 20px;
+}
