@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SVG Grid Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 p-10 flex flex-col items-center">
+    <h1 class="text-2xl font-bold mb-6">Database to SVG Dashboard</h1>
+    
+    <form action="/generate" method="post" class="mb-8">
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition">
+            Generate 4x4 Grid from DB
+        </button>
+    </form>
+
+    {% if svg_path %}
+    <div class="bg-white p-4 rounded-xl shadow-2xl border border-slate-200">
+        <img src="{{ svg_path }}" alt="Generated Grid">
+    </div>
+    {% endif %}
+</body>
+</html>
