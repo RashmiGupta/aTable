@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .square-container {
+            width: 300px;
+            height: 300px;
+            display: flex; /* Vertical stripes side-by-side */
+            border: 2px solid #333;
+        }
+
+        .v-stripe {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            font-size: 12px;
+            flex: 1; /* Default narrow width */
+        }
+
+        /* The broad middle stripe */
+        .v-stripe.middle {
+            flex: 3; 
+            flex-direction: column; /* Allows horizontal stripes inside */
+            padding: 0;
+        }
+
+        .h-stripe {
+            width: 100%;
+            flex: 1; /* Evenly distributes the 4 parts (0-3) */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px opacity 0.1 solid;
+        }
+    </style>
+</head>
+<body>
+
+<div class="square-container">
+    {% for item in v %}
+        {% set is_middle = loop.index0 == 1 %}
+        
+        <div class="v-stripe {{ 'middle' if is_middle else '' }}" 
+             style="background-color: {{ item[0] if item is iterable and item is not string else item }};">
+            
+            {% if is_middle %}
+                {# Internal Horizontal Logic #}
+                {% for i in range(4) %}
+                    {% set h_data = h_map.get(i|string, []) %}
+                    <div class="h-stripe" style="background-color: {{ h_data[0][0] if h_data else 'transparent' }};">
+                        {{ h_data[0][1] if h_data else '' }}
+                    </div>
+                {% endfor %}
+            {% else %}
+                {# Left/Right Text #}
+                {{ item[1] if item is iterable and item is not string else '' }}
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>
