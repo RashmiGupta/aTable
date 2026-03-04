@@ -10,8 +10,7 @@
                 {% if cell.is_outer %}
                     <div class="flag-container">
                         {% for item in flag.v %}
-                            {% set is_broad = loop.index0 == 1 %}
-                            {# Handle both "color" and ("color", "text") formats #}
+                            {% set is_middle = loop.index0 == 1 %}
                             {% set color = item[0] if item is iterable and item is not string else item %}
                             
                             <div class="v-stripe {{ 'broad' if is_broad else '' }}" 
@@ -20,8 +19,7 @@
                                 {% if is_broad %}
                                     {% for i in range(4) %}
                                         <div class="h-segment">
-                                            {% set stripes = flag.h_map.get(i|string, []) %}
-                                            {% for s_color, s_text in stripes %}
+                                            {% for s_color, s_text in flag.h_map.get(i|string, []) %}
                                                 <div class="sub-stripe" style="background-color: {{ s_color }};">
                                                     {{ s_text }}
                                                 </div>
@@ -29,7 +27,9 @@
                                         </div>
                                     {% endfor %}
                                 {% else %}
-                                    {{ item[1] if item is iterable and item is not string else '' }}
+                                    <span style="transform: rotate(-90deg);">
+                                        {{ item[1] if item is iterable and item is not string else '' }}
+                                    </span>
                                 {% endif %}
                             </div>
                         {% endfor %}
