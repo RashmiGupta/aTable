@@ -2,8 +2,74 @@
 <html>
 <head>
     <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+    <style>
+        .search-controls { margin: 20px; padding: 20px; background: #eee; border-radius: 8px; }
+        .result-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
+        .result-card { border: 1px solid #ccc; padding: 10px; background: white; }
+        .preview-box { width: 100px; height: 100px; margin: 10px auto; } /* Small preview version of the flag */
+    </style>
 </head>
 <body>
+    <div class="search-controls">
+        <form method="get" action="/admin/search">
+            <input type="text" name="admin_name" placeholder="Admin Name" value="{{ admin_name or '' }}">
+            <select name="cell_type">
+                <option value="">All Types</option>
+                <option value="corner" {{ 'selected' if cell_type == 'corner' }}>Corner</option>
+                <option value="edge" {{ 'selected' if cell_type == 'edge' }}>Edge</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div class="result-grid">
+        {% for item in results %}
+        <div class="result-card" style="border: 2px solid #444; margin-bottom: 20px; padding: 15px;">
+            <p><strong>Admin:</strong> {{ item.admin }}</p>
+            <p><strong>Type:</strong> {{ item.type }}</p>
+            <div style="display: flex; justify-content: space-between;">
+            <h3>Design #{{ item.id }}</h3>
+            <form action="/admin/delete/{{ item.id }}" method="post" onsubmit="return confirm('Delete this flag?')">
+                <button type="submit" style="background: #ff4444; color: white; border: none; padding: 5px 10px; cursor: pointer;">Delete</button>
+            </form> </div>
+            <div style="display: flex; gap: 20px; align-items: flex-start;">
+            <div class="preview-box" style="width: 120px; height: 120px; border: 1px solid #000;">
+                <div class="flag-container">
+                    {% for v_item in item.flag.v %}
+                        {% set is_middle = loop.index0 == 1 %}
+                        {% set color = v_item[0] if v_item is iterable and v_item is not string else v_item %}
+                        <div class="v-stripe {{ 'broad-middle' if is_middle else '' }}" 
+                             style="background-color: {{ color if not is_middle else 'transparent' }};">
+                            {% if is_middle %}
+                                {% for i in range(4) %}
+                                    <div class="h-segment">
+                                        {% for s_color, s_text in item.flag.h_map.get(i|string, []) %}
+                                            <div class="sub-stripe" style="background-color: {{ s_color }}; height: 100%;"></div>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div style="flex-grow: 1;">
+                <p><strong>Cell Type:</strong> {{ item.type }}</p>
+                <form action="/admin/update-notes/{{ item.id }}" method="post">
+                    <label style="display: block; margin-bottom: 5px;"><strong>Admin Notes:</strong></label>
+                    <textarea name="notes" style="width: 100%; height: 60px; border: 1px solid #ccc;">{{ item.notes }}</textarea>
+                    <button type="submit" style="margin-top: 5px; background: #2ecc71; color: white; border: none; padding: 5px 15px;">Save Notes</button>
+                </form>
+            </div>
+        </div>
+        
+        <details style="margin-top: 10px; font-size: 0.8rem; color: #666;">
+            <summary>View Raw Config (Read-Only)</summary>
+            <pre>{{ item.flag | tojson(indent=2) }}</pre>
+        </details>
+        </div>
+        {% endfor %}
+    </div>
     <div class="main-grid">
         {% for cell in grid %}
             <div class="cell">
