@@ -6,6 +6,63 @@
     justify-content: center;
     padding: 20px;
 }
+.main-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 12px;
+    width: 90vw;
+    height: 90vw;
+    max-width: 700px;
+    max-height: 700px;
+    margin: 40px auto;
+}
+
+.cell {
+    background: #fcfcfc;
+    border: 1px solid #ddd;
+    overflow: hidden;
+}
+
+.flag-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.v-stripe {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex: 1; /* Sides are narrow */
+    font-size: 0.65rem;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.v-stripe.broad-middle {
+    flex: 3; /* Middle is broad */
+    background-color: #fff; /* Base for horizontal segments */
+}
+
+.h-segment {
+    flex: 1; /* Divided into 4 equal parts (0,1,2,3) */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-stripe {
+    flex: 1; /* Accommodates 0-6 stripes dynamically */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
 
 .cell {
     width: 160px;
