@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+    <style>
+        .search-controls { margin: 20px; padding: 20px; background: #eee; border-radius: 8px; }
+        .result-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
+        .result-card { border: 1px solid #ccc; padding: 10px; background: white; }
+        .preview-box { width: 100px; height: 100px; margin: 10px auto; } /* Small preview version of the flag */
+    </style>
+</head>
+<body><div class="search-info">
+    Displaying grid for Admin: <strong>{{ search_meta.admin or 'All' }}</strong> 
+    (Keyword: <strong>{{ search_meta.keyword or 'None' }}</strong>)
+</div>
+
+<div class="grid-container" style="display: grid; grid-template-columns: repeat(4, 150px); gap: 10px;">
+    {% for row in matrix %}
+        {% for cell in row %}
+            <div class="cell" style="width: 150px; height: 150px; border: 1px solid #ccc;">
+                {% if cell.is_outer and cell.data %}
+                    <div class="flag-container" style="display: flex; height: 100%;">
+                        {% for v_item in cell.data.v %}
+                            {% set is_middle = loop.index0 == 1 %}
+                            <div class="v-stripe {{ 'broad' if is_middle else '' }}" 
+                                 style="flex: {{ 3 if is_middle else 1 }}; background-color: {{ v_item[0] if not is_middle else 'white' }};">
+                                {% if is_middle %}
+                                    {% for i in range(4) %}
+                                        <div class="h-segment" style="height: 25%; width: 100%;">
+                                            {% for color, text in cell.data.h_map.get(i|string, []) %}
+                                                <div class="sub-stripe" style="background-color: {{ color }}; height: 100%;">
+                                                    {{ text }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <span style="writing-mode: vertical-rl;">{{ v_item[1] }}</span>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div></body>
+</html>
