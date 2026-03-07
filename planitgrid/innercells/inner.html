@@ -1,0 +1,77 @@
+.dashboard-container {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+}
+.grid-stage {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 120px);
+    grid-template-rows: repeat(4, 120px);
+    gap: 5px;
+    background: #333;
+    padding: 5px;
+    border-radius: 4px;
+}
+.cell { background: #fff; overflow: hidden; }
+
+/* The 3x3 Grid nested inside the center of the 4x4 */
+.inner-3x3-container {
+    position: absolute;
+    top: 125px; /* Adjust based on cell size + gap */
+    left: 125px;
+    width: 245px;
+    height: 245px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2px;
+    z-index: 10;
+}
+.action-btn {
+    background: #e0e0e0;
+    border: 1px solid #999;
+    cursor: pointer;
+    font-size: 10px;
+    transition: background 0.2s;
+}
+.action-btn:hover { background: #2ecc71; color: white; }
+
+/* RIGHT COLUMN: Insights */
+.insight-panel {
+    flex: 1;
+    background: #f9f9f9;
+    border-left: 5px solid #2ecc71;
+    padding: 20px;
+    min-height: 500px;
+}
+<div class="dashboard-container">
+    <div class="left-col">
+        <div class="grid-stage">
+             4X4 outer cells
+             <div class="inner-3x3-container">
+                {% for i in buttons %}
+                    <button class="action-btn" onclick="updateInsight('Btn {{i}}')">
+                         Action {{i}}
+                    </button>
+                {% endfor %}
+             </div>
+        </div>
+    </div>
+    <div class="insight-panel" id="insight-display">
+        <h2>Creative Insights</h2>
+        <p>Select a button from the 3x3 grid to generate analysis based on the surrounding configurations.</p>
+        <div id="output-text" style="line-height: 1.6; color: #444;"></div>
+    </div>
+</div>
+<script>
+  function updateInsight(btnName) {
+        const output = document.getElementById('output-text');
+        // This is a placeholder for your creative text generation logic
+        output.innerHTML = `<h3>Analysis for ${btnName}</h3>
+            <p>The surrounding vertical stripes suggest a pattern of stability. 
+            The horizontal sub-stripes in the broad middle segments indicate 
+            a multi-layered configuration strategy typical of this admin's style.</p>`;
+    }
+</script>
